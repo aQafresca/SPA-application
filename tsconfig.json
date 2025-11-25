@@ -21,7 +21,9 @@
       "@store/*": ["./src/store/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
-      "@constants/*": ["./src/constants/*"]
+      "@constants/*": ["./src/constants/*"],
+      "@route/*": ["./src/route/*"],
+      "@wrappers/*": ["./src/wrappers/*"],
     }
   },
   "ts-node": {
