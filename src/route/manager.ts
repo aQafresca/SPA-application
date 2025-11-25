@@ -6,10 +6,10 @@ export const RouterManager = new Manager({
       url: '/',
     },
     login: {
-      url: 'login',
+      url: '/login',
     },
     detail: {
-      url: 'detail',
+      url: '/detail',
     },
   },
 });

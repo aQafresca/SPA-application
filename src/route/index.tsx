@@ -1,10 +1,10 @@
+import { RouterManager } from '@route/manager';
+import Layout from '@wrappers/layout';
 import type { RouteObject } from 'react-router-dom';
-
-import { RouterManager } from './manager';
-import Layout from '../wrappers/layout';
 
 export const routes: RouteObject[] = [
   {
+    path: '/',
     element: <Layout />,
     children: [
       {
@@ -18,6 +18,10 @@ export const routes: RouteObject[] = [
       {
         path: RouterManager.path('detail'),
         lazy: () => import('@pages/detail').then((module) => ({ Component: module.default })),
+      },
+      {
+        path: '*',
+        lazy: () => import('@pages/not-found').then((module) => ({ Component: module.default })),
       },
     ],
   },
