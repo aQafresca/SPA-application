@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
-import { RouterManager } from '@route/manager';
 import { Link as RouterLink } from 'react-router-dom';
+
+import { RouterManager } from '@/route/manager';
 
 export default function Error() {
   return (

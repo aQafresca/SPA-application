@@ -5,14 +5,9 @@ import {Configuration} from "webpack";
 export const buildResolvers = (srcPath: string): Configuration['resolve'] => {
   return {
     alias: {
-      '@assets': path.resolve(srcPath, 'assets'),
+
+      '@': path.resolve(srcPath),
       '@pages': path.resolve(srcPath, 'pages'),
-      '@constants': path.resolve(srcPath, 'constants'),
-      '@store': path.resolve(srcPath, 'store'),
-      '@components': path.resolve(srcPath, 'components'),
-      '@utils': path.resolve(srcPath, 'utils'),
-      '@wrappers': path.resolve(srcPath, 'wrappers'),
-      '@route': path.resolve(srcPath, 'route'),
     },
     extensions: ['.tsx', '.ts', '.js', '.json'],
   }
