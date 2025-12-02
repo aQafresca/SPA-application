@@ -1,9 +1,15 @@
-import { ButtonLabel } from '@constants/index';
-import { AppBar, Button, Toolbar, Link } from '@mui/material';
-import { RouterManager } from '@route/manager';
+import { AppBar, Toolbar, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
+import { BaseButton } from '@/components/buttons/base';
+import { LogoutButton } from '@/components/buttons/logout';
+import { ButtonLabel } from '@/constants';
+import { useAppSelector } from '@/core/hooks/useRedux';
+import { RouterManager } from '@/route/manager';
+
 export const Header = () => {
+  const isAuth = useAppSelector((state) => state.auth.isAuth);
+
   return (
     <AppBar sx={{ position: 'static' }}>
       <Toolbar
@@ -18,9 +24,7 @@ export const Header = () => {
         <Link component={RouterLink} to={RouterManager.makeURL('home')} sx={{ textDecoration: 'none' }}>
           SPA
         </Link>
-        <Button component={RouterLink} to={RouterManager.makeURL('login')}>
-          {ButtonLabel.LOGIN}
-        </Button>
+        {isAuth ? <LogoutButton /> : <BaseButton to={RouterManager.makeURL('login')} label={ButtonLabel.LOGIN} />}
       </Toolbar>
     </AppBar>
   );
