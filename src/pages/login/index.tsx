@@ -1,12 +1,30 @@
-import { TextInput } from '@components/fields/text';
-import { ButtonLabel, TittleText, Placeholder } from '@constants/index';
 import { Typography, Button, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
+import { TextInput } from '@/components/fields/text';
+import Loader from '@/components/loader';
+import { ButtonLabel, TittleText, Placeholder } from '@/constants';
+import { useAppDispatch } from '@/core/hooks/useRedux';
+import { IAuthRequest, IAuthResponse } from '@/interface/auth';
+import { useLoginUserMutation } from '@/services/authApi';
+import { setAuthData } from '@/store/auth';
+
 export const LoginPage = () => {
-  const { control } = useForm({
-    mode: 'onSubmit',
+  const [login, { isLoading, error }] = useLoginUserMutation();
+  const dispatch = useAppDispatch();
+
+  const { control, handleSubmit } = useForm<IAuthRequest>({
+    defaultValues: {
+      username: 'emilys',
+      password: 'emilyspass',
+    },
   });
+
+  const onSubmit = async (data: IAuthRequest) => {
+    const authData: IAuthResponse = await login(data).unwrap();
+
+    dispatch(setAuthData(authData));
+  };
 
   return (
     <Stack
@@ -16,12 +34,16 @@ export const LoginPage = () => {
       height={'100vh'}
       maxWidth={'600px'}
       margin={'0 auto'}
+      onSubmit={(e) => {
+        void handleSubmit(onSubmit)(e);
+      }}
       noValidate
     >
+      {isLoading && <Loader />}
       <Typography variant={'h4'}>{TittleText.LOGIN}</Typography>
-      <TextInput name={'Email'} control={control} label={'Email'} placeholder={Placeholder.EMAIL} />
+      <TextInput name={'username'} control={control} label={'Username'} placeholder={Placeholder.USERNAME} />
       <TextInput
-        name={'Password'}
+        name={'password'}
         control={control}
         label={'Password'}
         type={'password'}
@@ -30,6 +52,12 @@ export const LoginPage = () => {
       <Button type={'submit'} variant={'contained'} size={'large'} sx={{ width: '250px', alignSelf: 'center' }}>
         {ButtonLabel.SUBMIT}
       </Button>
+
+      {error && (
+        <Typography color={'error'} align={'center'}>
+          {'Login failed. Please check credentials.'}
+        </Typography>
+      )}
     </Stack>
   );
 };
