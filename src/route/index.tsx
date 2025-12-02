@@ -1,6 +1,9 @@
-import { RouterManager } from '@route/manager';
-import Layout from '@wrappers/layout';
 import type { RouteObject } from 'react-router-dom';
+
+import { RouterManager } from '@/route/manager';
+import Layout from '@/wrappers/layout';
+import PrivateRoute from '@/wrappers/route/private';
+import PublicRoute from '@/wrappers/route/public';
 
 export const routes: RouteObject[] = [
   {
@@ -8,16 +11,27 @@ export const routes: RouteObject[] = [
     element: <Layout />,
     children: [
       {
-        path: RouterManager.path('home'),
-        lazy: () => import('@pages/home').then((module) => ({ Component: module.default })),
+        element: <PublicRoute />,
+        children: [
+          {
+            path: RouterManager.path('login'),
+            lazy: () => import('@pages/login').then((module) => ({ Component: module.default })),
+          },
+        ],
       },
       {
-        path: RouterManager.path('login'),
-        lazy: () => import('@pages/login').then((module) => ({ Component: module.default })),
-      },
-      {
-        path: RouterManager.path('detail'),
-        lazy: () => import('@pages/detail').then((module) => ({ Component: module.default })),
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: RouterManager.path('home'),
+            lazy: () => import('@pages/home').then((module) => ({ Component: module.default })),
+          },
+
+          {
+            path: RouterManager.path('detail'),
+            lazy: () => import('@pages/detail').then((module) => ({ Component: module.default })),
+          },
+        ],
       },
       {
         path: '*',

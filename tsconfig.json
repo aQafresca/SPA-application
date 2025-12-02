@@ -17,13 +17,8 @@
     "noEmit": false,
 
     "paths": {
-      "@assets/*": ["./src/assets/*"],
-      "@store/*": ["./src/store/*"],
-      "@components/*": ["./src/components/*"],
+      "@/*": ["./src/*"],
       "@pages/*": ["./src/pages/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@route/*": ["./src/route/*"],
-      "@wrappers/*": ["./src/wrappers/*"],
     }
   },
   "ts-node": {
