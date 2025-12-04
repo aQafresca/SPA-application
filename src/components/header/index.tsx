@@ -11,7 +11,7 @@ export const Header = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
 
   return (
-    <AppBar sx={{ position: 'static' }}>
+    <AppBar sx={{ position: 'static', mb: '2rem' }}>
       <Toolbar
         sx={{
           display: 'flex',
@@ -24,7 +24,7 @@ export const Header = () => {
         <Link component={RouterLink} to={RouterManager.makeURL('home')} sx={{ textDecoration: 'none' }}>
           SPA
         </Link>
-        {isAuth ? <LogoutButton /> : <BaseButton to={RouterManager.makeURL('login')} label={ButtonLabel.LOGIN} />}
+        {isAuth ? <LogoutButton /> : <BaseButton to={RouterManager.makeURL('login')}>{ButtonLabel.LOGIN}</BaseButton>}
       </Toolbar>
     </AppBar>
   );

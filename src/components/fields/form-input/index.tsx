@@ -11,7 +11,7 @@ interface ITextInputProps<TField extends FieldValues> {
   type?: 'text' | 'password';
 }
 
-export const TextInput = <TField extends FieldValues>({
+export const FormTextInput = <TField extends FieldValues>({
   name,
   control,
   label,

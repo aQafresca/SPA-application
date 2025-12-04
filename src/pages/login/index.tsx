@@ -1,7 +1,7 @@
 import { Typography, Button, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
-import { TextInput } from '@/components/fields/text';
+import { FormTextInput } from '@/components/fields/form-input';
 import Loader from '@/components/loader';
 import { ButtonLabel, TittleText, Placeholder } from '@/constants';
 import { useAppDispatch } from '@/core/hooks/useRedux';
@@ -41,8 +41,8 @@ export const LoginPage = () => {
     >
       {isLoading && <Loader />}
       <Typography variant={'h4'}>{TittleText.LOGIN}</Typography>
-      <TextInput name={'username'} control={control} label={'Username'} placeholder={Placeholder.USERNAME} />
-      <TextInput
+      <FormTextInput name={'username'} control={control} label={'Username'} placeholder={Placeholder.USERNAME} />
+      <FormTextInput
         name={'password'}
         control={control}
         label={'Password'}
