@@ -15,5 +15,5 @@ export const LogoutButton = () => {
     void navigate(RouterManager.makeURL('login'));
   };
 
-  return <BaseButton onClick={handleLogout} label={ButtonLabel.LOGOUT} />;
+  return <BaseButton onClick={handleLogout}>{ButtonLabel.LOGOUT}</BaseButton>;
 };
