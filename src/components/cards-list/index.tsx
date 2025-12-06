@@ -21,7 +21,7 @@ export const CardList = ({ filterName, currentPage, onPageChange }: IProps) => {
   const navigate = useNavigate();
 
   const totalPages: number | undefined = data?.info.pages;
-  const isListEmpty: boolean = (!isLoading && data?.results.length === 0) || (isError && !isLoading);
+  const isListEmpty: boolean = (!isLoading && !isFetching && data?.results.length === 0) || (isError && !isLoading);
 
   const handleCharacterClick = (id: number) => {
     const url = RouterManager.makeURL('detail', { id });
@@ -37,7 +37,7 @@ export const CardList = ({ filterName, currentPage, onPageChange }: IProps) => {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
       <Container
         component={'section'}
-        sx={{ display: 'flex', flexWrap: 'wrap', gap: '3rem', justifyContent: 'space-around' }}
+        sx={{ display: 'flex', flexWrap: 'wrap', gap: '3rem', justifyContent: 'space-around', minHeight: '500px' }}
       >
         {isFetching && <Loader />}
         {isListEmpty && <EmptyList text={EMPTY_LIST.CHAR_TEXT} />}
