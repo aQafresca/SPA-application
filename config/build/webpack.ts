@@ -27,7 +27,7 @@ export const buildWebpack = (options: IBuildOptions): webpack.Configuration => {
       rules: buildLoaders(options),
     },
     optimization: buildChunks(options),
-    devtool: isDev && 'inline-source-map',
+    devtool: isDev ? 'inline-source-map' : 'source-map',
     devServer: isDev ? buildDevServer(options) : undefined,
     resolve: buildResolvers(paths.src),
   }
