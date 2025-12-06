@@ -1,11 +1,22 @@
 import { Card, CardContent, CardMedia, Typography, Box, Stack } from '@mui/material';
 
-import { CHAR } from '@/constants';
 import { ICharacter } from '@/interface/characters';
+import { buildCharacterDescription } from '@/shared/lib/buildDescription';
 
-export const CharacterCard = (props: ICharacter) => {
+interface ICharacterCardProps extends ICharacter {
+  onDetailClick: (_id: number) => void;
+}
+
+export const CharacterCard = (props: ICharacterCardProps) => {
+  const handleDetailClick = () => {
+    props.onDetailClick?.(props.id);
+  };
+
+  const description = buildCharacterDescription(props);
+
   return (
     <Card
+      onClick={handleDetailClick}
       sx={{
         width: '300px',
         height: '450px',
@@ -33,26 +44,14 @@ export const CharacterCard = (props: ICharacter) => {
         </Typography>
 
         <Stack spacing={1}>
-          <Box display="flex" gap={1}>
-            <Typography variant="body2" color="text.secondary">
-              {CHAR.GENDER}
-            </Typography>
-            <Typography variant="body2">{props.gender}</Typography>
-          </Box>
-
-          <Box display="flex" gap={1}>
-            <Typography variant="body2" color="text.secondary">
-              {CHAR.STATUS}
-            </Typography>
-            <Typography variant="body2">{props.status}</Typography>
-          </Box>
-
-          <Box display="flex" gap={1}>
-            <Typography variant="body2" color="text.secondary">
-              {CHAR.SPECIES}
-            </Typography>
-            <Typography variant="body2">{props.species}</Typography>
-          </Box>
+          {description.map((item) => (
+            <Box key={item.label} display="flex" gap={1}>
+              <Typography variant="body2" color="text.secondary">
+                {item.label}
+              </Typography>
+              <Typography variant="body2">{item.value}</Typography>
+            </Box>
+          ))}
         </Stack>
       </CardContent>
     </Card>
