@@ -17,7 +17,15 @@ export const CharacterCard = (props: ICharacter) => {
         },
       }}
     >
-      <CardMedia component="img" width={'300px'} height={'280px'} image={props.image} alt={props.name} />
+      <CardMedia
+        component="img"
+        width={'300px'}
+        height={'280px'}
+        loading="lazy"
+        image={props.image}
+        alt={props.name}
+        sx={{ aspectRatio: '300 / 280' }}
+      />
 
       <CardContent>
         <Typography variant="h6" component="h3" gutterBottom>

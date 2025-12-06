@@ -10,7 +10,7 @@ export const Footer = () => {
         width: '100%',
         borderTop: '1px solid rgba(255,255,255,0.3)',
         padding: '1rem 0',
-        mt: '2rem',
+        // mt: '2rem',
         bgcolor: 'background.paper',
         color: 'text.secondary',
       }}
