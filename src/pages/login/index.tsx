@@ -31,7 +31,7 @@ export const LoginPage = () => {
       component={'form'}
       justifyContent={'center'}
       gap={'20px'}
-      height={'100vh'}
+      width={'100%'}
       maxWidth={'600px'}
       margin={'0 auto'}
       onSubmit={(e) => {
