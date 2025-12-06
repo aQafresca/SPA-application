@@ -1,11 +1,13 @@
 import { Box, Container, Pagination } from '@mui/material';
-import React, { useCallback } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { CharacterCard } from '@/components/cards-list/card';
 import { EmptyList } from '@/components/empty-list';
 import Loader from '@/components/loader';
 import { EMPTY_LIST } from '@/constants';
 import { ICharacter } from '@/interface/characters';
+import { RouterManager } from '@/route/manager';
 import { useGetCharactersQuery } from '@/services/charactersApi';
 
 interface IProps {
@@ -16,16 +18,20 @@ interface IProps {
 
 export const CardList = ({ filterName, currentPage, onPageChange }: IProps) => {
   const { data, isLoading, isError, isFetching } = useGetCharactersQuery({ page: currentPage, name: filterName });
+  const navigate = useNavigate();
 
   const totalPages: number | undefined = data?.info.pages;
   const isListEmpty: boolean = (!isLoading && data?.results.length === 0) || (isError && !isLoading);
 
-  const handlePageChange = useCallback(
-    (_event: React.ChangeEvent<unknown>, value: number) => {
-      onPageChange(value);
-    },
-    [onPageChange],
-  );
+  const handleCharacterClick = (id: number) => {
+    const url = RouterManager.makeURL('detail', { id });
+
+    void navigate(url);
+  };
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    onPageChange(value);
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
@@ -37,7 +43,9 @@ export const CardList = ({ filterName, currentPage, onPageChange }: IProps) => {
         {isListEmpty && <EmptyList text={EMPTY_LIST.CHAR_TEXT} />}
         {!isLoading &&
           !isListEmpty &&
-          data?.results?.map((item: ICharacter) => <CharacterCard key={item.id} {...item} />)}
+          data?.results?.map((item: ICharacter) => (
+            <CharacterCard key={item.id} {...item} onDetailClick={handleCharacterClick} />
+          ))}
       </Container>
 
       {!isLoading && !isListEmpty && (
