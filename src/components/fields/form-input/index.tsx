@@ -47,6 +47,7 @@ export const FormTextInput = <TField extends FieldValues>({
                             onMouseDown={(e): void => e.preventDefault()}
                             onMouseUp={(e): void => e.preventDefault()}
                             edge="end"
+                            aria-label={showPassword ? 'Show password' : 'Hidden password'}
                           >
                             {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
