@@ -9,7 +9,10 @@ export const RouterManager = new Manager({
       url: '/login',
     },
     detail: {
-      url: '/detail',
+      url: '/detail/:id',
+      params: {
+        id: 0,
+      },
     },
   },
 });

@@ -11,7 +11,7 @@ export const Header = () => {
   const isAuth = useAppSelector((state) => state.auth.isAuth);
 
   return (
-    <AppBar sx={{ position: 'static', mb: '2rem' }}>
+    <AppBar sx={{ position: 'static' }}>
       <Toolbar
         sx={{
           display: 'flex',
