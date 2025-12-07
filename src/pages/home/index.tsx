@@ -33,7 +33,7 @@ const HomePage = () => {
   );
 
   return (
-    <Stack component={'section'} alignItems="center" gap={4}>
+    <Stack component={'section'} alignItems="center" alignSelf={'flex-start'} gap={4}>
       <SearchBar
         label={'Character'}
         value={charactersName}
