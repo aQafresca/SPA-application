@@ -146,12 +146,11 @@ To log in to the application, use the following credentials:
 
 1. Lighthouse
 
-   ![lighthouse desktop]()
-   ![lighthouse mobile]()
+   ![lighthouse desktop](src/assets/images/desktop.jpg)
 
 2. W3C Validator
 
-   ![Validator w3]()
+   ![Validator w3](src/assets/images/w3.jpg)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
