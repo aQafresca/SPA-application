@@ -10,9 +10,10 @@ import { buildCharacterDescription } from '@/shared/lib/buildDescription';
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const charId = id ? Number(id) : undefined;
   const navigate = useNavigate();
 
-  const { data: character, isLoading, isError } = useGetCharacterByIdQuery(+id!);
+  const { data: character, isLoading, isError } = useGetCharacterByIdQuery(charId, { skip: !charId });
 
   const handleClose = () => {
     void navigate(-1);
