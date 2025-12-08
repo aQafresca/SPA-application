@@ -1,0 +1,8 @@
+/** @type {import('stylelint').Config} */
+export default {
+  extends: ['stylelint-config-standard-scss', 'stylelint-config-clean-order'],
+  rules: {
+    'scss/dollar-variable-pattern': null,
+    'selector-class-pattern': null,
+  },
+};
