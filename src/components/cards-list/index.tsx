@@ -21,7 +21,9 @@ export const CardList = ({ filterName, currentPage, onPageChange }: IProps) => {
   const navigate = useNavigate();
 
   const totalPages: number | undefined = data?.info.pages;
-  const isListEmpty: boolean = (!isLoading && !isFetching && data?.results.length === 0) || (isError && !isLoading);
+  const hasError = isError && !isLoading;
+  const hasNoResults = !isLoading && !isFetching && data?.results?.length === 0;
+  const showEmptyList = hasNoResults || hasError;
 
   const handleCharacterClick = (id: number) => {
     const url = RouterManager.makeURL('detail', { id });
@@ -40,15 +42,15 @@ export const CardList = ({ filterName, currentPage, onPageChange }: IProps) => {
         sx={{ display: 'flex', flexWrap: 'wrap', gap: '3rem', justifyContent: 'space-around', minHeight: '500px' }}
       >
         {isFetching && <Loader />}
-        {isListEmpty && <EmptyList text={EMPTY_LIST.CHAR_TEXT} />}
+        {showEmptyList && <EmptyList text={EMPTY_LIST.CHAR_TEXT} />}
         {!isLoading &&
-          !isListEmpty &&
+          !showEmptyList &&
           data?.results?.map((item: ICharacter) => (
             <CharacterCard key={item.id} {...item} onDetailClick={handleCharacterClick} />
           ))}
       </Container>
 
-      {!isLoading && !isListEmpty && (
+      {!isLoading && !showEmptyList && (
         <Pagination
           count={totalPages}
           page={currentPage}

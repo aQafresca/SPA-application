@@ -10,9 +10,10 @@ import { buildCharacterDescription } from '@/shared/lib/buildDescription';
 
 const DetailPage = () => {
   const { id } = useParams<{ id: string }>();
+  const charId = id ? Number(id) : undefined;
   const navigate = useNavigate();
 
-  const { data: character, isLoading, isError } = useGetCharacterByIdQuery(+id!);
+  const { data: character, isLoading, isError } = useGetCharacterByIdQuery(charId, { skip: !charId });
 
   const handleClose = () => {
     void navigate(-1);
@@ -43,28 +44,14 @@ const DetailPage = () => {
         position: 'relative',
       }}
     >
-      <BaseButton
-        aria-label="close"
-        onClick={handleClose}
-        size="large"
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: 8,
-          fontSize: 18,
-        }}
-      >
-        {ButtonLabel.CLOSE_X}
-      </BaseButton>
-
       <Typography variant="h4" component="h1" gutterBottom align="center">
         {character.name}
       </Typography>
 
       <Divider sx={{ mb: 3 }} />
 
-      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
-        <Box sx={{ flexShrink: 0, width: { xs: '100%', sm: 300 } }}>
+      <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} alignItems={{ sm: 'center' }}>
+        <Box sx={{ flexShrink: 0, width: { xs: '100%', sm: 220 } }}>
           <CardMedia
             component="img"
             image={character.image}
@@ -79,15 +66,30 @@ const DetailPage = () => {
         </Box>
 
         <CardContent sx={{ flexGrow: 1 }}>
-          <Stack spacing={2}>
-            {description.map((item) => (
-              <Box key={item.label} display="flex" gap={1}>
-                <Typography variant="body1" color="text.secondary" fontWeight="bold" sx={{ minWidth: '150px' }}>
-                  {item.label}
-                </Typography>
-                <Typography variant="body1">{item.value}</Typography>
-              </Box>
-            ))}
+          <Stack spacing={4}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {description.map((item) => (
+                <Box key={item.label} display="flex" gap={1}>
+                  <Typography variant="body1" color="text.secondary" fontWeight="bold" sx={{ minWidth: '100px' }}>
+                    {item.label}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      overflow: 'hidden',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                    }}
+                  >
+                    {item.value}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+            <BaseButton onClick={handleClose} variant={'contained'}>
+              {ButtonLabel.CLOSE}
+            </BaseButton>
           </Stack>
         </CardContent>
       </Stack>

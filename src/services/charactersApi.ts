@@ -25,7 +25,7 @@ export const getCharactersApi = createApi({
         };
       },
     }),
-    getCharacterById: build.query<ICharacter, number>({
+    getCharacterById: build.query<ICharacter, number | undefined>({
       query: (id) => ({
         url: `api/character/${id}`,
       }),
