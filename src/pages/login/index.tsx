@@ -5,8 +5,10 @@ import { FormTextInput } from '@/components/fields/form-input';
 import Loader from '@/components/loader';
 import { ButtonLabel, TittleText, Placeholder } from '@/constants';
 import { useAppDispatch } from '@/core/hooks/useRedux';
-import { IAuthRequest, IAuthResponse } from '@/interface/auth';
+import { IAuthRequest } from '@/interface/auth';
 import { useLoginUserMutation } from '@/services/authApi';
+import { getApiErrorMessage } from '@/shared/utils/getApiErrorMessage';
+import { logError } from '@/shared/utils/logError';
 import { setAuthData } from '@/store/auth';
 
 export const LoginPage = () => {
@@ -21,9 +23,13 @@ export const LoginPage = () => {
   });
 
   const onSubmit = async (data: IAuthRequest) => {
-    const authData: IAuthResponse = await login(data).unwrap();
+    try {
+      const authData = await login(data).unwrap();
 
-    dispatch(setAuthData(authData));
+      dispatch(setAuthData(authData));
+    } catch (error) {
+      logError(error, 'LOGIN');
+    }
   };
 
   return (
@@ -55,7 +61,7 @@ export const LoginPage = () => {
 
       {error && (
         <Typography color={'error'} align={'center'}>
-          {'Login failed. Please check credentials.'}
+          {getApiErrorMessage(error)}
         </Typography>
       )}
     </Stack>
