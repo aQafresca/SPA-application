@@ -3,7 +3,7 @@ export const ButtonLabel = {
   LOGOUT: 'Log out',
   SUBMIT: 'Submit',
   SEARCH: 'Search',
-  CLOSE_X: 'X',
+  CLOSE: 'Close',
 };
 
 export const TittleText = {
